@@ -65,6 +65,13 @@ jobs:
         with:
           arch: x64
 
+      # Setting up MSVC sets the Platform env var to x64, which we don't want
+      - name: Clear Platform env var (Windows)
+        if: "runner.os == 'Windows'"
+        shell: pwsh
+        run: |
+          "MY_ENVIRONMENT_VARIABLE=variable_value" >> $env:GITHUB_ENV
+
       - name: Setup dependencies (Mac)
         if: "runner.os == 'macOS'"
         run: |

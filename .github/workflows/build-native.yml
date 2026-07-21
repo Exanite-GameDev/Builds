@@ -113,13 +113,17 @@ jobs:
         run: |
           git fetch https://github.com/shader-slang/slang.git "refs/tags/*:refs/tags/*"
 
+      - name: Restore
+        working-directory: submodules/Exanite.GameDev
+        run: dotnet restore
+
       - name: Setup build system
         working-directory: submodules/Exanite.GameDev
-        run: dotnet build projects/Exanite.Engine.BuildSystem/Exanite.Engine.BuildSystem
+        run: dotnet build projects/Exanite.Engine.BuildSystem/Exanite.Engine.BuildSystem  --no-restore
 
       - name: Build
         working-directory: submodules/Exanite.GameDev
-        run: dotnet run --project projects/Exanite.Engine.BuildSystem/Exanite.Engine.BuildSystem -- build-${{ matrix.output }}
+        run: dotnet run --project projects/Exanite.Engine.BuildSystem/Exanite.Engine.BuildSystem -- build-${{ matrix.output }} --no-restore
 
       # This currently sets RPath information on Mac and Linux
       - name: Post-process binaries

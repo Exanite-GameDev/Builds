@@ -65,13 +65,6 @@ jobs:
         with:
           arch: x64
 
-      # Setting up MSVC sets the Platform env var to x64, which we don't want
-      - name: Clear Platform env var (Windows)
-        if: "runner.os == 'Windows'"
-        shell: pwsh
-        run: |
-          "MY_ENVIRONMENT_VARIABLE=variable_value" >> $env:GITHUB_ENV
-
       - name: Setup dependencies (Mac)
         if: "runner.os == 'macOS'"
         run: |
@@ -122,15 +115,15 @@ jobs:
 
       - name: Restore
         working-directory: submodules/Exanite.GameDev
-        run: dotnet restore
+        run: dotnet restore -p:Configuration=Release -p:Platform="Any CPU"
 
       - name: Setup build system
         working-directory: submodules/Exanite.GameDev
-        run: dotnet build projects/Exanite.Engine.BuildSystem/Exanite.Engine.BuildSystem --no-restore
+        run: dotnet build projects/Exanite.Engine.BuildSystem/Exanite.Engine.BuildSystem -p:Configuration=Release -p:Platform="Any CPU" --no-restore
 
       - name: Build
         working-directory: submodules/Exanite.GameDev
-        run: dotnet run --project projects/Exanite.Engine.BuildSystem/Exanite.Engine.BuildSystem --no-restore -- build-${{ matrix.output }}
+        run: dotnet run --project projects/Exanite.Engine.BuildSystem/Exanite.Engine.BuildSystem -p:Configuration=Release -p:Platform="Any CPU" --no-restore -- build-${{ matrix.output }}
 
       # This currently sets RPath information on Mac and Linux
       - name: Post-process binaries

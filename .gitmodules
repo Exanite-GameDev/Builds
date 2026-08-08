@@ -3,4 +3,4 @@
 	url = https://github.com/Exanite-GameDev/Exanite.GameDev.git
 [submodule "submodules/Silk.NET"]
 	path = submodules/Silk.NET
-	url = https://github.com/Exanite/Silk.NET.git
+	url = https://github.com/Exanite-GameDev/Silk.NET.git

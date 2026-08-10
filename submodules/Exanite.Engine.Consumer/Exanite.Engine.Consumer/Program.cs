@@ -10,7 +10,7 @@ public static class Program
     public static int Main(string[] args)
     {
         var settings = new EngineSettings(CompanyName, ProgramName);
-        var engine = EngineRoot.Create(settings, []);
+        using var engine = EngineRoot.Create(settings, []);
 
         return engine.Launch(args);
     }

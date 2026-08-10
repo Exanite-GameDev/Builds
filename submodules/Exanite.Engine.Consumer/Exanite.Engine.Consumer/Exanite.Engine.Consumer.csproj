@@ -9,8 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Exanite.Engine" Version="0.0.0-preview-dev-nuget-packing.6703"/>
-    <!-- TODO: This shouldn't be necessary and the normal buildsystem package doesn't work -->
-    <PackageReference Include="Exanite.Engine.BuildSystem.linux-x64" Version="0.0.0-preview-dev-nuget-packing.6703"/>
+    <PackageReference Include="Exanite.Engine" Version="0.0.0-preview-dev-nuget-packing.6726"/>
   </ItemGroup>
 </Project>

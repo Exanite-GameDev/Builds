@@ -1,9 +1,9 @@
 [submodule "submodules/Exanite.GameDev"]
-	path = submodules/Exanite.GameDev
+	path = projects/Exanite.GameDev
 	url = https://github.com/Exanite-GameDev/Exanite.GameDev.git
 [submodule "submodules/Silk.NET"]
-	path = submodules/Silk2.NET
+	path = projects/Silk2.NET
 	url = https://github.com/Exanite-GameDev/Silk.NET.git
 [submodule "submodules/silk3"]
-	path = submodules/silk3
+	path = projects/Silk3.NET
 	url = https://github.com/Exanite-GameDev/Silk.NET.git

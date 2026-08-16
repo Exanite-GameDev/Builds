@@ -43,20 +43,20 @@ jobs:
       - name: Initialize Exanite.GameDev submodule
         run: |
           git config --global url."https://x-access-token:${{ secrets._GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
-          git submodule update --init --recursive submodules/Exanite.GameDev
+          git submodule update --init --recursive projects/Exanite.GameDev
 
       - name: Setup build system
         run: dotnet build projects/Exanite.Engine.BuildSystem/Exanite.Engine.BuildSystem
-        working-directory: submodules/Exanite.GameDev
+        working-directory: projects/Exanite.GameDev
 
       - name: Build
         run: dotnet run --project projects/Exanite.Engine.BuildSystem/Exanite.Engine.BuildSystem -- package --project ${{ env.EXANITE_PROJECT_NAME }}
-        working-directory: submodules/Exanite.GameDev
+        working-directory: projects/Exanite.GameDev
 
 #      - name: Show dylib info before normalization
 #        shell: pwsh
 #        run: |
-#          $folder = "./submodules/Exanite.GameDev/outputs/packages"
+#          $folder = "./projects/Exanite.GameDev/outputs/packages"
 #          $files = Get-ChildItem -Path $folder -Filter *.dylib -Recurse
 #          foreach ($file in $files) {
 #              Write-Host "----------------------------------------"
@@ -80,7 +80,7 @@ jobs:
 #      - name: Normalize dylib rpaths
 #        shell: pwsh
 #        run: |
-#          $folder = "./submodules/Exanite.GameDev/outputs/packages"
+#          $folder = "./projects/Exanite.GameDev/outputs/packages"
 #          $files = Get-ChildItem -Path $folder -Filter *.dylib -Recurse
 #          foreach ($file in $files) {
 #              $rpaths = otool -l $file
@@ -103,7 +103,7 @@ jobs:
 #      - name: Show dylib info after normalization
 #        shell: pwsh
 #        run: |
-#          $folder = "./submodules/Exanite.GameDev/outputs/packages"
+#          $folder = "./projects/Exanite.GameDev/outputs/packages"
 #          $files = Get-ChildItem -Path $folder -Filter *.dylib -Recurse
 #          foreach ($file in $files) {
 #              Write-Host "----------------------------------------"
@@ -132,14 +132,14 @@ jobs:
           # export DYLD_PRINT_RPATHS=1
           
           # Explicitly set ICD path (for testing)
-          # export VK_ICD_FILENAMES="./submodules/Exanite.GameDev/outputs/packages/${{ env.EXANITE_PROJECT_NAME }}/${{ env.EXANITE_PROJECT_NAME }}_Mac.app/Contents/Resources/vulkan/icd.d/MoltenVK_icd.json.disabled"
+          # export VK_ICD_FILENAMES="./projects/Exanite.GameDev/outputs/packages/${{ env.EXANITE_PROJECT_NAME }}/${{ env.EXANITE_PROJECT_NAME }}_Mac.app/Contents/Resources/vulkan/icd.d/MoltenVK_icd.json.disabled"
           
           # Switch to MoltenVK
-          mv ./submodules/Exanite.GameDev/outputs/packages/${{ env.EXANITE_PROJECT_NAME }}/${{ env.EXANITE_PROJECT_NAME }}_Mac.app/Contents/Resources/vulkan/icd.d/MoltenVK_icd.json.disabled ./submodules/Exanite.GameDev/outputs/packages/${{ env.EXANITE_PROJECT_NAME }}/${{ env.EXANITE_PROJECT_NAME }}_Mac.app/Contents/Resources/vulkan/icd.d/MoltenVK_icd.json
-          rm ./submodules/Exanite.GameDev/outputs/packages/${{ env.EXANITE_PROJECT_NAME }}/${{ env.EXANITE_PROJECT_NAME }}_Mac.app/Contents/Resources/vulkan/icd.d/libkosmickrisp_icd.json
+          mv ./projects/Exanite.GameDev/outputs/packages/${{ env.EXANITE_PROJECT_NAME }}/${{ env.EXANITE_PROJECT_NAME }}_Mac.app/Contents/Resources/vulkan/icd.d/MoltenVK_icd.json.disabled ./submodules/Exanite.GameDev/outputs/packages/${{ env.EXANITE_PROJECT_NAME }}/${{ env.EXANITE_PROJECT_NAME }}_Mac.app/Contents/Resources/vulkan/icd.d/MoltenVK_icd.json
+          rm ./projects/Exanite.GameDev/outputs/packages/${{ env.EXANITE_PROJECT_NAME }}/${{ env.EXANITE_PROJECT_NAME }}_Mac.app/Contents/Resources/vulkan/icd.d/libkosmickrisp_icd.json
           
           # Run the program
-          ./submodules/Exanite.GameDev/outputs/packages/${{ env.EXANITE_PROJECT_NAME }}/${{ env.EXANITE_PROJECT_NAME }}_Mac.app/Contents/MacOS/${{ env.EXANITE_PROJECT_NAME }} --no-crash-popup &
+          ./projects/Exanite.GameDev/outputs/packages/${{ env.EXANITE_PROJECT_NAME }}/${{ env.EXANITE_PROJECT_NAME }}_Mac.app/Contents/MacOS/${{ env.EXANITE_PROJECT_NAME }} --no-crash-popup &
           APP_PID=$!
           
           # Wait for engine to initialize
@@ -177,4 +177,4 @@ jobs:
         uses: actions/upload-artifact@v5
         with:
           name: Packages
-          path: submodules/Exanite.GameDev/outputs/packages
+          path: projects/Exanite.GameDev/outputs/packages

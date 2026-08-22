@@ -7,3 +7,6 @@
 [submodule "submodules/silk3"]
 	path = projects/Silk3.NET
 	url = https://github.com/Exanite-GameDev/Silk.NET.git
+[submodule "projects/Exanite.GameDev.Native"]
+	path = projects/Exanite.GameDev.Native
+	url = https://github.com/Exanite-GameDev/Exanite.GameDev.Native.git
